@@ -1,0 +1,85 @@
+<!--
+ * ***** BEGIN LICENSE BLOCK *****
+ * Zimbra Collaboration Suite Web Client
+ * Copyright (C) 2005, 2007, 2011, 2014 Zimbra, Inc.
+ * 
+ * The contents of this file are subject to the Common Public Attribution License Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. 
+ * You may obtain a copy of the License at: http://www.zimbra.com/license
+ * The License is based on the Mozilla Public License Version 1.1 but Sections 14 and 15 
+ * have been added to cover use of software over a computer network and provide for limited attribution 
+ * for the Original Developer. In addition, Exhibit A has been modified to be consistent with Exhibit B. 
+ * 
+ * Software distributed under the License is distributed on an "AS IS" basis, 
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing rights and limitations under the License. 
+ * The Original Code is Zimbra Open Source Web Client. 
+ * The Initial Developer of the Original Code is Zimbra, Inc. 
+ * All portions of the code are Copyright (C) 2005, 2007, 2011, 2014 Zimbra, Inc. All Rights Reserved. 
+ * ***** END LICENSE BLOCK *****
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+  <head>
+    <title>lookupTest</title>
+  </head>
+
+  <body>
+    <h1>lookupTest</h1>
+    <div id=content></div>
+    <a href="javascript:lookupDocAll()">lookup with
+      document.all</a><div id=results1></div><br><br>
+    <a href="javascript:lookupGetEl()">lookup with
+      document.getElementById</a><div id=results2></div><br><br>
+  </body>
+  
+<script>
+var totalEl = 2000;
+var strArray = new Array();
+var arr = new Array();
+var idx = 0;
+var t = null;
+for (var i = 0; i < totalEl; ++i) {
+	t =  "EL" +i;
+	strArray.push(t);
+	arr[idx++] = "<div id="+t+">EL" +i+"</div>\n";
+}
+
+document.getElementById("content").innerHTML = arr.join("");
+
+function lookupDocAll () {
+    var temp = null;
+    var id = null;
+    var idArr = new Array();
+    var startTime = new Date();
+    for (var i = 0; i < totalEl; ++i) {
+	temp = document.all[strArray[i]];
+	idArr.push(temp.id);
+    }
+    var endTime = new Date();
+    var elapsed = endTime.getTime() - startTime.getTime();
+    document.getElementById("results1").innerHTML = "Total time = " +
+	elapsed + " number of elements = " + totalEl + "<br>Avg = " +
+	elapsed/totalEl + "<br>els=<br>"+idArr.join("<br>");
+}
+
+function lookupGetEl () {
+    var temp = null;
+    var id = null;
+    var idArr = new Array();
+    var startTime = new Date();
+    for (var i = 0; i < totalEl; ++i) {
+	temp = document.getElementById(strArray[i]);
+	idArr.push(temp.id);
+    }
+    var endTime = new Date();
+    var elapsed = endTime.getTime() - startTime.getTime();
+    document.getElementById("results2").innerHTML = "Total time = " +
+    elapsed + " number of elements = " + totalEl + "<br>Avg = " +
+    elapsed/totalEl +  "<br>els=<br>"+idArr.join("<br>");;
+    
+}
+</script>
+
+</html>
