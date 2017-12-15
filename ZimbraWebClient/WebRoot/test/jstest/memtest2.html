@@ -1,0 +1,135 @@
+<!--
+ * ***** BEGIN LICENSE BLOCK *****
+ * Zimbra Collaboration Suite Web Client
+ * Copyright (C) 2005, 2007, 2014 Zimbra, Inc.
+ * 
+ * The contents of this file are subject to the Common Public Attribution License Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. 
+ * You may obtain a copy of the License at: http://www.zimbra.com/license
+ * The License is based on the Mozilla Public License Version 1.1 but Sections 14 and 15 
+ * have been added to cover use of software over a computer network and provide for limited attribution 
+ * for the Original Developer. In addition, Exhibit A has been modified to be consistent with Exhibit B. 
+ * 
+ * Software distributed under the License is distributed on an "AS IS" basis, 
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing rights and limitations under the License. 
+ * The Original Code is Zimbra Open Source Web Client. 
+ * The Initial Developer of the Original Code is Zimbra, Inc. 
+ * All portions of the code are Copyright (C) 2005, 2007, 2014 Zimbra, Inc. All Rights Reserved. 
+ * ***** END LICENSE BLOCK *****
+-->
+<html>
+<head>
+<title></title>
+
+<style type="text/css">
+.pdiv { 
+	overflow:auto; 
+	border:solid black thin; 
+	width:500; 
+	height: 350 
+}
+</style>
+
+<script language="javascript">
+
+var counter = 0;
+var idcount = 0;
+var hashTable = new Object();
+
+function contact()
+{	
+	// add fake properties to this object
+	this.id = idcount++;
+	this.first = "parag";
+	this.last = "shah";
+	this.address = "555 Somewhere street";
+	this.city = "sunnyvale";
+	this.state = "ca";
+	this.zipcode = "94087";
+	this.email = "pshah@zimbra.com";
+	this.phone = "555-555-5555";
+	this.work = "Zimbra";
+	this.workPhone = "408-973-0500";
+	this.workAddress = "1054 S. De Anza Blvd.";
+	this.workCity = "San Jose";
+	this.workState = "CA";
+}
+
+contact.prototype.dtor = function() {
+	// "remove" all properties from this object.
+	/*
+	delete this.first;
+	delete this.last;
+	delete this.address;
+	delete this.city;
+	delete this.state;
+	delete this.zipcode;
+	delete this.email;
+	delete this.phone;
+	delete this.work;
+	delete this.workPhone;
+	delete this.workAddress;
+	delete this.workCity;
+	delete this.workState;
+	*/
+	this.first = null;
+	this.last = null;
+	this.address = null;
+	this.city = null;
+	this.state = null;
+	this.zipcode = null;
+	this.email = null;
+	this.phone = null;
+	this.work = null;
+	this.workPhone = null;
+	this.workAddress = null;
+	this.workCity = null;
+	this.workState = null;
+}
+
+function doIt() {
+	var pDiv = document.getElementById("one");
+	//pDiv.innerHTML = "";
+	var len = pDiv.childNodes.length;
+	for (var j=0; j<len; j++) {
+		var itemId = pDiv.childNodes[0]._itemId
+		if (itemId >= 0) {
+			// free memory in hash table allocated to js object
+			hashTable[itemId].dtor();
+			hashTable[itemId] = null;
+			delete hashTable[itemId];
+		}
+		pDiv.removeChild(pDiv.childNodes[0]);
+	}
+	
+	for (var i=0; i<25; i++) {
+		cDiv = document.createElement("div");
+		cDiv.innerHTML = "<b>Hello world!</b> " + counter + "<br>";
+		// store js obj in hash table per ID
+		var c = new contact();
+		hashTable[c.id] = c;
+		// set ID in dom object property
+		cDiv._itemId = c.id;
+		pDiv.appendChild(cDiv);
+	}
+	++counter;
+}
+
+function startTimer()
+{
+	setInterval("doIt()", 500);
+}
+
+</script>
+</head>
+<body>
+
+<p><a href="javascript:;" onclick="startTimer();">Start Timer</a> or <a href="javascript:;" onclick="doIt();">do it manually</a></p>
+
+<div id="one" class="pdiv">
+</div>
+
+
+</body>
+</html>
