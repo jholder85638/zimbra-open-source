@@ -1,0 +1,81 @@
+<!--
+ * ***** BEGIN LICENSE BLOCK *****
+ * Zimbra Collaboration Suite Web Client
+ * Copyright (C) 2005, 2007, 2014 Zimbra, Inc.
+ * 
+ * The contents of this file are subject to the Common Public Attribution License Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. 
+ * You may obtain a copy of the License at: http://www.zimbra.com/license
+ * The License is based on the Mozilla Public License Version 1.1 but Sections 14 and 15 
+ * have been added to cover use of software over a computer network and provide for limited attribution 
+ * for the Original Developer. In addition, Exhibit A has been modified to be consistent with Exhibit B. 
+ * 
+ * Software distributed under the License is distributed on an "AS IS" basis, 
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing rights and limitations under the License. 
+ * The Original Code is Zimbra Open Source Web Client. 
+ * The Initial Developer of the Original Code is Zimbra, Inc. 
+ * All portions of the code are Copyright (C) 2005, 2007, 2014 Zimbra, Inc. All Rights Reserved. 
+ * ***** END LICENSE BLOCK *****
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>clipTest.html</title>
+    <style type="text/css">
+    	.parent {border: solid 1px red; overflow:hidden; width: 100; height: 100;}
+    	.icon1 {width:1024; height:822; position: relative; top: 0; left: -100; background-image: url('cmap.gif');}
+     	.icon2 {width:1024; height:822; position: relative; top: 0; left: -200; background-image: url('cmap.gif');}
+     	.icon3 {width:1024; height:822; position: relative; top: 0; left: -300; background-image: url('cmap.gif');}
+    </style>
+  </head>  
+  <body>
+  	<div id=test1 style='position:absolute;left:10;top:10;'></div>
+  	<div id=test2 style='position:absolute;left:200;top:10;'></div>
+  	<div id=test3 style='position:absolute;left:400;top:10;'></div>
+  	
+  	<script language="JavaScript">
+  		var test1 = document.getElementById("test1");
+  		var test2 = document.getElementById("test2");
+  		var test3 = document.getElementById("test3");
+  		
+  		var t1Start = new Date().getTime();
+  		for (var i = 0; i < 1000; i++) {
+  			var pDiv = document.createElement("div");
+  			pDiv.className = "parent";
+  			var div = document.createElement("div");
+  			div.className = "icon" + (i % 3 + 1);
+  			pDiv.appendChild(div);
+  			test1.appendChild(pDiv);
+  		} 
+  		var t1End = new Date().getTime();
+/*  		
+   		var t2Start = new Date().getTime();
+  		var html = new Array();
+  		var j =0;
+  		for (var i = 0; i < 1000; i++) {
+  			html[j++] = ["<div class=parent><div class=icon", (i % 3 + 1), "></div></div>"].join("");
+  		}
+  		test2.innerHTML = html.join("");
+   		var t2End = new Date().getTime();
+ 
+ 
+    	var t3Start = new Date().getTime();
+  		var html = new Array();
+  		var j =0;
+  		for (var i = 0; i < 1000; i++) {
+  			html[j++] = "<img src=cmap.gif><BR>";
+  		}
+  		test3.innerHTML = html.join("");
+   		var t3End = new Date().getTime();
+ 
+  		alert("Dom add element: " + (t1End-t1Start) + " msec\n" +
+		  	  "Blast HTML: " + (t2End-t2Start) + " msec\n" +
+  			  "Blast image tags: " + (t3End-t3Start) + " msec\n"
+  		);
+ */		
+  	</script>
+   </body>
+</html>
+
+<!-- t r b l -->
