@@ -1,0 +1,90 @@
+<!--
+ * ***** BEGIN LICENSE BLOCK *****
+ * Zimbra Collaboration Suite Web Client
+ * Copyright (C) 2005, 2007, 2014 Zimbra, Inc.
+ * 
+ * The contents of this file are subject to the Common Public Attribution License Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. 
+ * You may obtain a copy of the License at: http://www.zimbra.com/license
+ * The License is based on the Mozilla Public License Version 1.1 but Sections 14 and 15 
+ * have been added to cover use of software over a computer network and provide for limited attribution 
+ * for the Original Developer. In addition, Exhibit A has been modified to be consistent with Exhibit B. 
+ * 
+ * Software distributed under the License is distributed on an "AS IS" basis, 
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing rights and limitations under the License. 
+ * The Original Code is Zimbra Open Source Web Client. 
+ * The Initial Developer of the Original Code is Zimbra, Inc. 
+ * All portions of the code are Copyright (C) 2005, 2007, 2014 Zimbra, Inc. All Rights Reserved. 
+ * ***** END LICENSE BLOCK *****
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>StringCreationTest</title>
+  </head>
+
+  <body>
+    <h1>StringCreationTest</h1>
+    <div id=content></div>
+    <a href="javascript:createStringsNoConcat()">createStrings no concat </a>
+    <div id=results1></div><br><br>
+    <a href="javascript:createStringsIConcat()">createStrings
+      concatenating an integer </a>
+    <div id=results2></div><br><br>
+    <a href="javascript:createStringsUsingArrays()">createStrings
+      using arrays</a>
+    <div id=results3></div><br><br>
+
+  </body>
+  <script>
+	var totalStr = 2000;
+	var junkStr ="junkStr";
+	function createStringsNoConcat () {
+	    var strArr = new Array();
+	    var temp = null;
+	    var startTime = new Date();
+	    for (var i = 0; i < totalStr; ++i) {
+		temp = new String();
+	    }
+	    var endTime = new Date();
+	    var elapsed = endTime.getTime() - startTime.getTime();
+	    document.getElementById("results1").innerHTML = "Total time = " +
+		elapsed + " number of elements = " + totalStr + "<br>Avg = " +
+		elapsed/totalStr;
+	}
+	
+	function createStringsIConcat () {
+	    var strArr = new Array();
+	    var temp = null;
+	    var junkStr ="junkStr";
+	    var startTime = new Date();
+	    for (var i = 0; i < totalStr; ++i) {
+		temp = "junk" + junkStr;
+	    }
+	    var endTime = new Date();
+	    var elapsed = endTime.getTime() - startTime.getTime();
+	    document.getElementById("results2").innerHTML = "Total time = " +
+	    elapsed + " number of elements = " + totalStr + "<br>Avg = " +
+	    elapsed/totalStr;
+	}
+	
+	function createStringsUsingArrays () {
+	    var strArr = new Array(10);
+	    var temp = null;
+	    var junkStr ="junkStr";
+	    var startTime = new Date();
+	    for (var i = 0; i < totalStr; ++i) {
+		strArr[0] = "junk";
+		strArr[1] = junkStr;
+		temp = strArr.join('');
+	    }
+	    var endTime = new Date();
+	    var elapsed = endTime.getTime() - startTime.getTime();
+	    document.getElementById("results3").innerHTML = "Total time = " +
+	    elapsed + " number of elements = " + totalStr + "<br>Avg = " +
+	    elapsed/totalStr;
+	}
+	
+  </script>
+</html>
