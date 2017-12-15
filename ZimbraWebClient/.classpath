@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="jars/commons-cli-1.2.jar"/>
+	<classpathentry kind="lib" path="jars/ant/ant-1.6.5.jar"/>
+	<classpathentry kind="lib" path="/ZimbraCommon/jars/gifencoder.jar"/>
+	<classpathentry kind="lib" path="/ZimbraCommon/jars/servlet-api-3.1.jar"/>
+	<classpathentry kind="lib" path="/ZimbraCommon/jars/yuicompressor-2.4.2-zimbra.jar"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ZimbraCommon"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ZimbraTagLib"/>
+	<classpathentry kind="lib" path="jars/json-org.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ZimbraClient"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ZimbraServer"/>
+	<classpathentry kind="lib" path="/ZimbraCommon/jars/freemarker-2.3.19.jar"/>
+	<classpathentry kind="lib" path="jars/apache-jsp/org.mortbay.jasper.apache-jsp-8.0.20.M0.jar"/>
+	<classpathentry kind="lib" path="jars/apache-jsp/org.apache.taglibs.taglibs-standard-impl-1.2.1.jar"/>
+	<classpathentry kind="lib" path="jars/apache-jsp/org.apache.taglibs.taglibs-standard-spec-1.2.1.jar"/>
+	<classpathentry kind="lib" path="jars/apache-jsp/org.eclipse.jetty.apache-jsp-9.3.0.v20150612.jar"/>
+	<classpathentry kind="lib" path="jars/apache-jsp/org.eclipse.jetty.orbit.org.eclipse.jdt.core-3.8.2.v20130121.jar"/>
+	<classpathentry kind="lib" path="jars/apache-jsp/org.mortbay.jasper.apache-el-8.0.20.M0.jar"/>
+	<classpathentry kind="lib" path="/ZimbraCommon/jars/jetty-server-9.3.5.v20151012.jar"/>
+	<classpathentry kind="lib" path="/ZimbraCommon/jars/jetty-servlet-9.3.5.v20151012.jar"/>
+	<classpathentry kind="lib" path="/ZimbraCommon/jars/jetty-util-9.3.5.v20151012.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

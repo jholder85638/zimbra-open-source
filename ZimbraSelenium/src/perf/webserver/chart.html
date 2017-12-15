@@ -1,0 +1,70 @@
+<!--
+ * ***** BEGIN LICENSE BLOCK *****
+ * Zimbra Collaboration Suite Server
+ * Copyright (C) 2013, 2014, 2016 Synacor, Inc.
+ *
+ * The contents of this file are subject to the Common Public Attribution License Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at: https://www.zimbra.com/license
+ * The License is based on the Mozilla Public License Version 1.1 but Sections 14 and 15
+ * have been added to cover use of software over a computer network and provide for limited attribution
+ * for the Original Developer. In addition, Exhibit A has been modified to be consistent with Exhibit B.
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied.
+ * See the License for the specific language governing rights and limitations under the License.
+ * The Original Code is Zimbra Open Source Web Client.
+ * The Initial Developer of the Original Code is Zimbra, Inc.  All rights to the Original Code were
+ * transferred by Zimbra, Inc. to Synacor, Inc. on September 14, 2015.
+ *
+ * All portions of the code are Copyright (C) 2013, 2014, 2016 Synacor, Inc. All Rights Reserved.
+ * ***** END LICENSE BLOCK *****
+-->
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+	/**
+		Example:
+		?apps=1&browsers=1&builds=8&builds=9&messages=1",
+		app: ajax
+		builds: 7.2.3 and 8.0.3
+		browser: firefox
+		use-case: login
+	**/
+		
+	var jsonData = $.ajax({
+          url: "http://zqa-006.eng.vmware.com/perf/chart_json.cgi?apps=1&browsers=1&builds=8&builds=9&messages=31",
+          dataType:"json",
+          async: false
+          }).responseText;
+        var data = new google.visualization.DataTable(jsonData);
+
+        var options = {
+          title: 'Client Performance'
+        };
+
+        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+/**
+	document.getElementById('foo').innerHTML = data.toJSON();
+	document.getElementById('bar').innerHTML = jsonData;
+**/
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <div id="foo" style="width: 900px; height: 500px;"></div>
+    <div id="bar" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+
+

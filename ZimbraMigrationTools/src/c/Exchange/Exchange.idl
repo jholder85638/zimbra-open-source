@@ -1,0 +1,219 @@
+/*
+ * ***** BEGIN LICENSE BLOCK *****
+ * Zimbra Collaboration Suite CSharp Client
+ * Copyright (C) 2011, 2012, 2013, 2014, 2015, 2016 Synacor, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software Foundation,
+ * version 2 of the License.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ * ***** END LICENSE BLOCK *****
+ */
+
+// EXCHANGE.IDL : IDL source for Exchange  DEFINES THE COM OBJECTS (AND THEIR INTERFACES) EXPORTED BY ZIMBRA'S EXCHANGE.DLL
+//
+// - Exchange.MapiTools      <- tools for getting profile list etc
+// - Exchange.MapiAccount    <- the account
+// - Exchange.FolderObject   <- folder in the account
+// - Exchange.ItemObject     <- item in the folder
+//
+//
+// This file will be processed by the MIDL tool to produce the type library (Exchange.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+typedef enum FolderType {
+    Mail = 1,
+    Contacts = 2,
+    Calendar = 3,
+    Task = 4,
+} FolderType;
+
+
+
+
+
+// =======================================================================================================================================
+// INTERFACE DEFINITIONS
+// =======================================================================================================================================
+
+// =============================================================================
+// IMapiTools
+// =============================================================================
+[
+    object,
+    uuid(C5E4267C-AE6C-4E31-956A-06D8094D0CBE),
+    dual,
+    nonextensible,
+    pointer_default(unique)
+]
+interface IMapiTools: IDispatch {
+    [id(1), helpstring("initialize source server")]
+    HRESULT InitMapiTools([in] BSTR pProfileOrServerName, [in] BSTR pAdminUser, [in] BSTR pAdminPassword, [out, retval] BSTR *pErrorText);
+
+    [id(2), helpstring("disconnect from the mail server")] 
+    HRESULT UninitMapiTools([out, retval] BSTR *pErrorText);
+
+    [id(3)] HRESULT GetProfileList([out] VARIANT *Profiles, [out, retval]BSTR *status);
+
+    [id(4), helpstring("get Exchange users from object picker")]  
+    HRESULT SelectExchangeUsers([out] VARIANT *Users, [out, retval] BSTR *pErrorText);
+
+    [id(5), helpstring("errors not to display")] 
+    HRESULT AvoidInternalErrors([in]BSTR lpToCmp,[out, retval]LONG *lRetval);
+};
+
+// =============================================================================
+// IFolderObject
+// =============================================================================
+[
+    object,
+    uuid(11C777ED-E9D0-4C32-AB64-D3B71E069D0D),
+    dual,
+    nonextensible,
+    pointer_default(unique)
+]
+interface IFolderObject : IDispatch{
+    [propget, id(1)] HRESULT Name([out, retval] BSTR *pVal);
+    [propput, id(1)] HRESULT Name([in] BSTR newVal);
+
+    [propget, id(2)] HRESULT ZimbraSpecialFolderId([out, retval] LONG *pVal);
+    [propput, id(2)] HRESULT ZimbraSpecialFolderId([in] LONG newVal);
+
+    [propget, id(3)] HRESULT FolderPath([out, retval] BSTR *pVal);
+    [propput, id(3)] HRESULT FolderPath([in] BSTR newVal);
+
+    [propput, id(4)] HRESULT EID([in] VARIANT newVal);
+    [propget, id(4)] HRESULT EID([out, retval] VARIANT *newVal);
+
+    [propget, id(5)] HRESULT ItemCount([out, retval] LONG *pVal);
+    [propput, id(5)] HRESULT ItemCount([in] LONG newVal);
+
+    [propget, id(6)] HRESULT ContainerClass([out, retval] BSTR *pVal);
+    [propput, id(6)] HRESULT ContainerClass([in] BSTR newVal);
+};
+
+// =============================================================================
+// IMapiAccount
+// =============================================================================
+[
+    object,
+    uuid(8E14F34A-7CAC-4266-83F2-DC9AB08FBF8B),
+    dual,
+    nonextensible,
+    pointer_default(unique)
+]
+interface IMapiAccount : IDispatch{
+    [id(1)] HRESULT InitMapiAccount([in]BOOL bIsServerMigration, [in] BSTR bstrSrcAccount, [in] BSTR bstrZCSAccount, [in] BOOL bIsPublicFoldersMigration, [out, retval] BSTR *pErrorText);
+
+    [id(2)] HRESULT UninitMapiAccount();
+
+    [id(3)] HRESULT GetFolders([out, retval] VARIANT *folders);
+
+    [id(4), helpstring("retreive items for folder objects")]
+    HRESULT GetFolderItems([in] IFolderObject *folderObj, [in] VARIANT creationDate, [out, retval] VARIANT *vItems);
+
+    [id(5)] HRESULT GetItemData([in]BSTR userId, [in] VARIANT itemId, [in] FolderType type, [out, retval] VARIANT *pVal);
+
+    [id(6)] HRESULT GetOOO([out, retval] BSTR *OOOInfo);
+
+    [id(7)] HRESULT GetRules([out, retval] VARIANT *rules);
+};
+
+// =============================================================================
+// IItemObject
+// =============================================================================
+[
+    object,
+    uuid(473DAC45-B40B-4FBF-9AC0-4C584B2336AD),
+    dual,
+    nonextensible,
+    pointer_default(unique)
+]
+interface IItemObject : IDispatch{
+    [propget, id(1)] HRESULT ID([out, retval] BSTR *pVal);
+    [propput, id(1)] HRESULT ID([in] BSTR newVal);
+
+    [propget, id(2)] HRESULT Type([out, retval] FolderType *pVal);
+    [propput, id(2)] HRESULT Type([in] FolderType newVal);
+
+    [propget, id(3)] HRESULT CreationDate([out, retval] VARIANT *pVal);
+    [propput, id(3)] HRESULT CreationDate([in] VARIANT newVal);
+
+    [propget, id(4)] HRESULT Parentfolder([out, retval] IFolderObject **pVal);
+    [propput, id(4)] HRESULT Parentfolder([in] IFolderObject *newVal);
+
+    [propget, id(5)] HRESULT IDasString([out, retval] BSTR *pVal);
+    [propput, id(5)] HRESULT IDasString([in] BSTR newVal);
+
+    [propput, id(6)] HRESULT ItemID([in] VARIANT newVal);
+    [propget, id(6)] HRESULT ItemID([out,retval] VARIANT *newVal);
+
+    [propget, id(7)] HRESULT Subject([out,retval] BSTR *pVal);
+    [propput, id(7)] HRESULT Subject([in] BSTR newVal);
+
+    [propget, id(8)] HRESULT FilterDate([out,retval] BSTR *pVal);
+    [propput, id(8)] HRESULT FilterDate([in] BSTR newVal);
+
+    [propget, id(9)] HRESULT MessageSize([out,retval] ULONG *pVal);
+    [propput, id(9)] HRESULT MessageSize([in] ULONG newVal);
+
+    [id(10)] HRESULT GetDataForItemID([in] IMapiAccount *pSrcAccount, [in] VARIANT ItemId, [in] FolderType type, [out, retval] VARIANT *pVal);
+};
+
+
+
+// =======================================================================================================================================
+// Exchange library
+// =======================================================================================================================================
+[
+    uuid(33449EAA-8056-4D28-8D42-552B7C6C8954),
+    version(1.0),
+]
+
+library Exchange {
+    importlib("stdole2.tlb");
+
+    // MapiTools
+    [
+        uuid(A6A12B55-AE1E-449D-A646-19E0DB020EA2)		
+    ]
+    coclass MapiTools // DCB_NOTE_MAPIWRAPPER_DEF (Search for DCB_NOTE_MAPIWRAPPER_DEF to see where this is instantiated - in MapiMigration() in MapiMigration.cs)
+    {
+        [default] interface IMapiTools; // Defined above
+    };
+
+    // MapiAccount
+    [
+        uuid(A020CB81-231E-4349-9B05-4D262E24242C)		
+    ]
+    coclass MapiAccount
+    {
+        [default] interface IMapiAccount; // Defined above
+    };
+
+    // FolderObject
+    [
+        uuid(54CC791E-CDC9-429E-B94A-FEE4C44C45BB)		
+    ]
+    coclass FolderObject
+    {
+        [default] interface IFolderObject; // Defined above
+    };
+
+    // ItemObject
+    [
+        uuid(E85E06D6-1342-490B-9486-AFBF029143C1)		
+    ]
+    coclass ItemObject
+    {
+        [default] interface IItemObject; // Defined above
+    };
+};
+

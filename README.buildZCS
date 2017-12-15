@@ -1,0 +1,21 @@
+How to build ZCS:
+
+If this is a new platform, edit ZimbraBuild/rpmconf/Build/get_plat_tag.sh
+and add the appropriate function to add a new tag for your platform.
+
+Make sure the "zimbra" user exists in /etc/passwd
+Make sure the "zimbra" group exists in /etc/group
+
+Make sure that the p4 binary is in your path if using perforce (zimbra internal).
+p4 is not required for git builds via the zimbra-foss repository.
+
+The 1.7 JDK (oracle or openjdk) must be installed and present in your path.
+
+The JAVA_HOME environment variable must be set as appropriate for your installation.
+
+Ant 1.9.1 or later must be installed and present in your path.
+
+These must be installed prior to building, or the builds will fail.
+
+Then, in the ZimbraBuild directory, run:
+./buildZCS.sh
