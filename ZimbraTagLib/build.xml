@@ -1,0 +1,18 @@
+<project name="ZimbraTagLib" default="jar">
+    <import file="../ant-global.xml" />
+
+    <property environment="env"/>
+
+    <target name="docs" depends="jar" description="build tld docs in build/docs directory">
+        <java fork="true" jar="jars/tlddoc.jar" failonerror="true">
+            <arg line="-d ${taglib.build.dir}/docs"/>
+            <arg value="${taglib.jarfile}"/>
+        </java>
+    </target>
+
+    <target name="jar" depends="compile" description="build the jar file">
+        <antcall target="zimbra-jar">
+            <param name="implementation.title" value="Zimbra Taglib"/>
+        </antcall>
+    </target>
+</project>
