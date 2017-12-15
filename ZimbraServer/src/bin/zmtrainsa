@@ -1,0 +1,152 @@
+#!/bin/bash
+# 
+# ***** BEGIN LICENSE BLOCK *****
+# Zimbra Collaboration Suite Server
+# Copyright (C) 2005, 2006, 2007, 2008, 2009, 2010, 2012, 2013, 2014 Zimbra, Inc.
+# 
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software Foundation,
+# version 2 of the License.
+# 
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <http://www.gnu.org/licenses/>.
+# ***** END LICENSE BLOCK *****
+# 
+
+
+autoTrainSystem() {
+
+  timestampit "Starting spam/ham extraction from system accounts."
+  spamdir=`mktemp -d -t spam.XXXXXXX` || exit 1
+  hamdir=`mktemp -d -t ham.XXXXXXX` || exit 1
+  /opt/zimbra/libexec/zmspamextract ${spam_account} -o ${spamdir}
+  /opt/zimbra/libexec/zmspamextract ${ham_account} -o ${hamdir}
+  timestampit "Finished extracting spam/ham from system accounts."
+
+  timestampit "Starting spamassassin training."
+  /opt/zimbra/common/bin/sa-learn \
+    --dbpath=${db_path} -L --no-sync \
+    --spam ${spamdir}
+
+  /opt/zimbra/common/bin/sa-learn \
+    --dbpath=${db_path} -L --no-sync \
+    --ham ${hamdir}
+
+  /opt/zimbra/common/bin/sa-learn \
+    --dbpath=${db_path} --sync
+  timestampit "Finished spamassassin training."
+
+  /bin/rm -rf ${spamdir} ${hamdir}
+}
+
+trainAccountFolder() {
+
+  if [ "x${MODE}" = "xspam" ]; then
+    tempdir=`mktemp -d -t spam.XXXXXX` || exit 1
+    FOLDER=${FOLDER:=junk}
+  elif [ "x${MODE}" = "xham" ]; then
+    tempdir=`mktemp -d -t ham.XXXXXX` || exit 1
+    FOLDER=${FOLDER:=inbox}
+  fi
+
+  timestampit  "Starting spamassassin $MODE training for $USER using folder $FOLDER"
+  /opt/zimbra/libexec/zmspamextract -r -m $USER -o ${tempdir} -q in:${FOLDER}
+
+  /opt/zimbra/common/bin/sa-learn \
+    --dbpath=${db_path} -L --no-sync \
+    --${MODE} ${tempdir}
+
+  /opt/zimbra/common/bin/sa-learn \
+    --dbpath=${db_path} --sync
+  timestampit  "Finished spamassassin $MODE training for $USER using folder $FOLDER"
+
+  /bin/rm -rf ${tempdir}
+
+}
+
+timestampit() {
+  SIMPLE_DATE=`date +%Y%m%d%H%M%S`
+  echo "$SIMPLE_DATE $1"
+}
+
+usage() {
+  echo "Usage: $0 <user> <spam|ham> [folder]"
+  exit 1
+}
+
+if [ x`whoami` != xzimbra ]; then
+    echo Error: must be run as zimbra user
+  exit 1
+fi
+
+if [ ! -x "/opt/zimbra/common/sbin/amavisd" ]; then
+    echo "Error: SpamAssassin not installed"
+    exit 1
+fi
+
+source `dirname $0`/zmshutil || exit 1
+zmsetvars
+
+antispam_mysql_enabled=$(echo $antispam_mysql_enabled | tr A-Z a-z)
+zmtrainsa_cleanup_host=$(echo $zmtrainsa_cleanup_host | tr A-Z a-z)
+
+if [ "x${zimbra_spam_externalIsSpamAccount}" = "x" ]; then
+  spam_account="-s"
+else 
+  spam_account="-m ${zimbra_spam_externalIsSpamAccount}"
+fi
+
+if [ "x${zimbra_spam_externalIsNotSpamAccount}" = "x" ]; then
+  ham_account="-n"
+else 
+  ham_account="-m ${zimbra_spam_externalIsNotSpamAccount}"
+fi
+
+# Set db_path
+if [ x"$antispam_mysql_enabled" = "xtrue" ]; then
+  db_path='/opt/zimbra/data/amavisd/mysql/data'
+else
+  db_path='/opt/zimbra/data/amavisd/.spamassassin'
+fi
+
+
+# No argument mode uses zmspamextract for auto-training.
+if [ x$1 = "x" ]; then
+  autoTrainSystem
+  exit
+fi
+
+if [ x$1 = "x--cleanup" ]; then
+  if [ x${zmtrainsa_cleanup_host} = "xtrue" ]; then
+    timestampit "Starting spam/ham cleanup"
+    mydir=`mktemp -d -t cleanup.XXXXXX` || exit 1
+    /opt/zimbra/libexec/zmspamextract ${spam_account} -o ${mydir} -d
+    /opt/zimbra/libexec/zmspamextract ${ham_account} -o ${mydir} -d
+    /bin/rm -rf ${mydir}
+    timestampit "Finished spam/ham cleanup"
+  else 
+    timestampit "Cleanup skipped: $zimbra_server_hostname is not a spam/ham cleanup host."
+  fi
+  exit
+fi
+
+
+USER=$1
+MODE=`echo $2 | tr A-Z a-z`
+FOLDER=$3
+
+if [ "x${MODE}" != "xspam" -a "x${MODE}" != "xham" ]; then
+  usage
+fi
+
+if [ "x${USER}" = "x" ]; then
+  usage
+fi
+
+trainAccountFolder
+
+exit 0
+
