@@ -1,0 +1,252 @@
+/*
+ * ***** BEGIN LICENSE BLOCK *****
+ *
+ * Zimbra Collaboration Suite CSharp Client
+ * Copyright (C) 2012, 2014, 2016 Synacor, Inc.
+ *
+ * The contents of this file are subject to the Common Public Attribution License Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at: https://www.zimbra.com/license
+ * The License is based on the Mozilla Public License Version 1.1 but Sections 14 and 15
+ * have been added to cover use of software over a computer network and provide for limited attribution
+ * for the Original Developer. In addition, Exhibit A has been modified to be consistent with Exhibit B.
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied.
+ * See the License for the specific language governing rights and limitations under the License.
+ * The Original Code is Zimbra Open Source Web Client.
+ * The Initial Developer of the Original Code is Zimbra, Inc.  All rights to the Original Code were
+ * transferred by Zimbra, Inc. to Synacor, Inc. on September 14, 2015.
+ *
+ * All portions of the code are Copyright (C) 2012, 2014, 2016 Synacor, Inc. All Rights Reserved.
+ *
+ * ***** END LICENSE BLOCK *****
+ */
+function FileData_Pairs(x)
+{
+x.t("administrators","system");
+x.t("root","last");
+x.t("root","location");
+x.t("example","type");
+x.t("columns","shown");
+x.t("columns","changes");
+x.t("columns","choose");
+x.t("lists","results");
+x.t("lists","search");
+x.t("within","specified");
+x.t("shown","search");
+x.t("built-in","security");
+x.t("built-in","groups");
+x.t("description","lists");
+x.t("description","query");
+x.t("principals","objects");
+x.t("principals","examples");
+x.t("principals","computers");
+x.t("variables","used");
+x.t("source","destination");
+x.t("logon","specifies");
+x.t("logon","guests");
+x.t("user","computer");
+x.t("user","names");
+x.t("user","accounts");
+x.t("descriptions","provides");
+x.t("locations","select");
+x.t("locations","enter");
+x.t("last","logon");
+x.t("last","logged");
+x.t("dialog","box");
+x.t("people","access");
+x.t("smith","joseph");
+x.t("displays","selections");
+x.t("type","description");
+x.t("type","user");
+x.t("type","partial");
+x.t("type","name");
+x.t("type","search");
+x.t("type","click");
+x.t("type","names");
+x.t("joe","smith");
+x.t("i.e","joe");
+x.t("default","built-in");
+x.t("partial","user");
+x.t("partial","object");
+x.t("require","significant");
+x.t("listed","2014");
+x.t("want","find");
+x.t("want","search");
+x.t("objects","specified");
+x.t("objects","represent");
+x.t("objects","users");
+x.t("objects","used");
+x.t("access","network");
+x.t("advanced","specifies");
+x.t("security","principals");
+x.t("list","view");
+x.t("list","names");
+x.t("group","descriptions");
+x.t("group","names");
+x.t("network","resources");
+x.t("check","names");
+x.t("logged","domain");
+x.t("results","lists");
+x.t("results","list");
+x.t("results","search");
+x.t("selects","specific");
+x.t("specified","query");
+x.t("specified","object");
+x.t("name","lists");
+x.t("name","selected");
+x.t("name","select");
+x.t("name","query");
+x.t("common","queries");
+x.t("box","displays");
+x.t("provides","space");
+x.t("find","built-in");
+x.t("find","user");
+x.t("find","starts");
+x.t("search","variables");
+x.t("search","user");
+x.t("search","require");
+x.t("search","want");
+x.t("search","objects");
+x.t("search","results");
+x.t("search","common");
+x.t("search","enter");
+x.t("search","include");
+x.t("search","values");
+x.t("search","minimize");
+x.t("partially","match");
+x.t("expiring","password");
+x.t("destination","mailboxes");
+x.t("allow","people");
+x.t("flanders","joanna");
+x.t("begin","search");
+x.t("begin","displayed");
+x.t("selected","click");
+x.t("writh","(optional)");
+x.t("queries","name");
+x.t("operators","users");
+x.t("members","users");
+x.t("select","root");
+x.t("select","type");
+x.t("select","select");
+x.t("select","types");
+x.t("select","object");
+x.t("space","type");
+x.t("domain","columns");
+x.t("mailboxes","dialog");
+x.t("number","days");
+x.t("specifies","number");
+x.t("specifies","whether");
+x.t("specifies","detailed");
+x.t("whether","search");
+x.t("2014","zimbra");
+x.t("detailed","search");
+x.t("types","locations");
+x.t("types","select");
+x.t("types","object");
+x.t("match","example");
+x.t("changes","columns");
+x.t("scope","search");
+x.t("impact","network");
+x.t("groups","objects");
+x.t("groups","security");
+x.t("groups","members");
+x.t("groups","location");
+x.t("groups","users");
+x.t("disabled","accounts");
+x.t("option","selects");
+x.t("enter","search");
+x.t("enter","object");
+x.t("click","source");
+x.t("click","locations");
+x.t("click","check");
+x.t("click","object");
+x.t("displayed","i.e");
+x.t("(optional)","advanced");
+x.t("include","administrators");
+x.t("include","user");
+x.t("include","disabled");
+x.t("power","users");
+x.t("computer's","access");
+x.t("joseph","flanders");
+x.t("selecting","users");
+x.t("specific","accounts");
+x.t("depending","scope");
+x.t("computer","group");
+x.t("view","find");
+x.t("represent","default");
+x.t("represent","computer's");
+x.t("location","search");
+x.t("location","begin");
+x.t("location","click");
+x.t("query","root");
+x.t("query","description");
+x.t("query","disabled");
+x.t("examples","include");
+x.t("joanna","writh");
+x.t("build-in","security");
+x.t("values","search");
+x.t("values","note");
+x.t("migrate","including");
+x.t("migrate","object");
+x.t("choose","object");
+x.t("selections","listed");
+x.t("users","within");
+x.t("users","objects");
+x.t("users","power");
+x.t("users","build-in");
+x.t("users","migrate");
+x.t("users","everyone");
+x.t("users","anonymous");
+x.t("users","computers");
+x.t("note","type");
+x.t("non","expiring");
+x.t("significant","network");
+x.t("system","operators");
+x.t("system","computers");
+x.t("everyone","authenticated");
+x.t("anonymous","logon");
+x.t("used","find");
+x.t("used","allow");
+x.t("used","represent");
+x.t("starts","search");
+x.t("non-expiring","passwords");
+x.t("passwords","days");
+x.t("minimize","impact");
+x.t("authenticated","users");
+x.t("guests","system");
+x.t("password","specifies");
+x.t("accounts","specifies");
+x.t("accounts","migrate");
+x.t("accounts","non");
+x.t("accounts","non-expiring");
+x.t("names","columns");
+x.t("names","type");
+x.t("names","partial");
+x.t("names","list");
+x.t("names","provides");
+x.t("names","partially");
+x.t("names","begin");
+x.t("names","select");
+x.t("names","click");
+x.t("including","users");
+x.t("days","last");
+x.t("days","users");
+x.t("picker","option");
+x.t("picker","selecting");
+x.t("picker","object");
+x.t("computers","objects");
+x.t("computers","groups");
+x.t("object","type");
+x.t("object","want");
+x.t("object","name");
+x.t("object","types");
+x.t("object","names");
+x.t("object","picker");
+x.t("resources","groups");
+x.t("resources","depending");
+x.t("resources","location");
+x.t("resources","specify");
+x.t("specify","search");
+}

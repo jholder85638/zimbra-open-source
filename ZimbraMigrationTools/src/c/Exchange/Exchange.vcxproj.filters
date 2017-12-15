@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{3cb6f882-9ee1-43c7-994c-e4e3d470105b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="COM Interface">
+      <UniqueIdentifier>{6254759f-91ad-4db7-808f-dff081fa0dff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Exchange_i.c">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="folderObject.cpp">
+      <Filter>COM Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemObject.cpp">
+      <Filter>COM Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="ExchangeAdmin.cpp" />
+    <ClCompile Include="MAPIAppointment.cpp" />
+    <ClCompile Include="MAPIContacts.cpp" />
+    <ClCompile Include="MAPIFolder.cpp" />
+    <ClCompile Include="MAPIMessage.cpp" />
+    <ClCompile Include="MAPIRfc2445.cpp" />
+    <ClCompile Include="MAPIRules.cpp" />
+    <ClCompile Include="MAPISession.cpp" />
+    <ClCompile Include="MAPIStore.cpp" />
+    <ClCompile Include="MAPITableIterator.cpp" />
+    <ClCompile Include="MAPITask.cpp" />
+    <ClCompile Include="MapiUtils.cpp" />
+    <ClCompile Include="ReminderEventListener.cpp" />
+    <ClCompile Include="Util.cpp" />
+    <ClCompile Include="dllmain.cpp">
+      <Filter>COM Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Exchange.cpp">
+      <Filter>COM Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SessionGlobal.cpp" />
+    <ClCompile Include="COMMapiAccount.cpp">
+      <Filter>COM Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="MAPIAccount.cpp" />
+    <ClCompile Include="COMMapiTools.cpp">
+      <Filter>COM Interface</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Exchange_i.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="folderObject.h">
+      <Filter>COM Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemObject.h">
+      <Filter>COM Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h" />
+    <ClInclude Include="ExchangeAdmin.h" />
+    <ClInclude Include="GenericException.h" />
+    <ClInclude Include="MAPIAppointment.h" />
+    <ClInclude Include="MAPIContacts.h" />
+    <ClInclude Include="MAPIFolder.h" />
+    <ClInclude Include="MAPIMessage.h" />
+    <ClInclude Include="MAPIRfc2445.h" />
+    <ClInclude Include="MAPIRules.h" />
+    <ClInclude Include="MAPISession.h" />
+    <ClInclude Include="MAPIStore.h" />
+    <ClInclude Include="MAPITableIterator.h" />
+    <ClInclude Include="MAPITask.h" />
+    <ClInclude Include="MapiUtils.h" />
+    <ClInclude Include="optimize.h" />
+    <ClInclude Include="ReminderEventListener.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="tree.h" />
+    <ClInclude Include="Exchange.h">
+      <Filter>COM Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionGlobal.h" />
+    <ClInclude Include="COMMapiAccount.h">
+      <Filter>COM Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="MAPIAccount.h" />
+    <ClInclude Include="COMMapiTools.h">
+      <Filter>COM Interface</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Exchange.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="MapiWrapper.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="folderObject.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ItemObject.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="MapiAccessWrap.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="UserObject.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ClassDiagramExchange.cd" />
+    <None Include="Exchange.def">
+      <Filter>COM Interface</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Exchange.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="Exchange.idl">
+      <Filter>COM Interface</Filter>
+    </Midl>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,52 @@
+#!/bin/sh
+# 
+# ***** BEGIN LICENSE BLOCK *****
+# Zimbra Collaboration Suite Server
+# Copyright (C) 2008, 2009, 2010, 2013, 2014, 2016 Synacor, Inc.
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software Foundation,
+# version 2 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+# ***** END LICENSE BLOCK *****
+# 
+
+status=`head -1 "$1/update.status"`
+if [ ! "$status" = "applying" ]; then
+  echo WRONG STATUS: $status >> "$1/update.log"
+  exit 1
+fi
+
+if [ ! -r "$1/update.mar" ]; then
+  echo UPDATE FILE NOT FOUND >> "$1/update.log"
+  exit 1
+fi
+
+#get parameters for installer
+parmfile="$1/../../update.params"
+params=" "
+if [ -r "$parmfile" ]; then
+  while [ 1 ]; do
+    read line || break
+    params="$params $line"
+  done < "$parmfile"
+fi
+
+echo Start updating... >> "$1/update.log"
+
+stage=/tmp/zdupdate
+
+rm -fr $stage
+mkdir -p $stage
+mv "$1/update.mar" $stage/update.dmg
+/usr/bin/hdiutil attach $stage/update.dmg -mountpoint $stage/install
+open -W "$stage/install/Zimbra Desktop.mpkg"
+/usr/bin/hdiutil detach $stage/install
+rm -fr $stage
+
+echo Done updating >> "$1/update.log"
